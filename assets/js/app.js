@@ -22,7 +22,7 @@ function applyTheme(theme) {
   const dark = theme === 'dark';
   document.documentElement.classList.toggle('dark', dark);
   const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.setAttribute('content', dark ? '#070e15' : '#ecf3fa');
+  if (meta) meta.setAttribute('content', dark ? '#0f1822' : '#ecf3fa');
   try {
     localStorage.setItem(THEME_KEY, theme);
   } catch {
@@ -36,7 +36,6 @@ function buildHeader() {
   const brand = el('a', { class: 'brand', href: '#/' }, [
     el('div', { class: 'brand__mark' }, [icon('file-text', 19)]),
     el('span', { text: 'PDF Tools' }),
-    el('span', { class: 'brand__sub hide-sm', text: 'by Neha Ratna Mishra' }),
   ]);
 
   const panel = el('div', { class: 'dropdown__panel' });
@@ -99,9 +98,13 @@ function buildFooter() {
             class: 'site-footer__tagline',
             text: 'A complete PDF suite that runs entirely in your browser. No uploads, no accounts, no watermark.',
           }),
+          el('p', {
+            class: 'site-footer__note',
+            text: 'OCR uses a language model bundled with the site — scanned pages are never sent to a server either.',
+          }),
           el('span', { class: 'site-footer__pill' }, [
             icon('lock', 13),
-            el('span', { text: '100% local' }),
+            el('span', { text: 'No uploads' }),
           ]),
         ]),
         el('div', { class: 'site-footer__col' }, [
@@ -142,7 +145,7 @@ function buildFooter() {
         el('span', { class: 'site-footer__sep', 'aria-hidden': 'true', text: '·' }),
         el('span', { class: 'site-footer__made' }, [
           icon('heart', 13, 'site-footer__heart'),
-          el('span', { text: 'Runs entirely in your browser' }),
+          el('span', { text: 'No uploads — files stay on your device' }),
         ]),
       ]),
     ]),
@@ -249,10 +252,6 @@ function buildHome(mount) {
 
   const hero = el('section', { class: 'hero' }, [
     el('div', { class: 'hero__glow', 'aria-hidden': 'true' }),
-    el('div', { class: 'hero__badge' }, [
-      icon('sparkles', 14),
-      el('span', { text: `${TOOLS.length} tools · 100% in your browser` }),
-    ]),
     el('h1', { class: 'hero__title' }, [
       document.createTextNode('Every PDF tool '),
       el('span', { class: 'hero__title-accent', text: 'you need' }),
@@ -288,13 +287,6 @@ function buildHome(mount) {
       el('div', { class: 'hero__stat' }, [
         el('strong', { text: 'Free' }),
         el('span', { text: 'no sign-up' }),
-      ]),
-    ]),
-    el('p', { class: 'hero__author' }, [
-      el('span', { class: 'hero__author-avatar', 'aria-hidden': 'true', text: 'NM' }),
-      el('span', {}, [
-        document.createTextNode('Designed & developed by '),
-        el('strong', { text: 'Neha Ratna Mishra' }),
       ]),
     ]),
   ]);

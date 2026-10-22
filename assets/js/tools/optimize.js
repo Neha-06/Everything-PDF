@@ -225,13 +225,12 @@ export const compressPdf = {
           }),
         ]),
         el('div', { class: 'field' }, [
-          el('div', { class: 'switch' }, [
+          el('label', { class: 'switch' }, [
             el('div', { class: 'switch__text' }, [
               document.createTextNode('Convert to grayscale'),
               el('small', { text: 'Removes colour from image pages — usually a big saving.' }),
             ]),
-            el('label', { class: 'switch__track' }),
-            grayInput,
+            el('span', { class: 'switch__track' }, [grayInput]),
           ]),
         ]),
       ]),
@@ -391,7 +390,7 @@ export const ocrPdf = {
           text: 'The OCR engine runs locally in your browser — no page is ever uploaded. Scanned pages become searchable and selectable.',
         }),
         el('div', { class: 'note' }, [
-          el('span', { text: `${pages} page${pages === 1 ? '' : 's'} to read. The first run downloads the English language model.` }),
+          el('span', { text: `${pages} page${pages === 1 ? '' : 's'} to read. The English model ships with the app and is cached locally after the first run.` }),
         ]),
       ]),
       read: () => ({}),

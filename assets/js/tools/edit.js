@@ -312,13 +312,12 @@ export const pageNumbers = {
           start,
         ]),
         el('div', { class: 'field' }, [
-          el('div', { class: 'switch' }, [
+          el('label', { class: 'switch' }, [
             el('div', { class: 'switch__text' }, [
               document.createTextNode('Skip the first page'),
               el('small', { text: 'Common for cover pages.' }),
             ]),
-            el('label', { class: 'switch__track' }),
-            skipFirst,
+            el('span', { class: 'switch__track' }, [skipFirst]),
           ]),
         ]),
         el('div', { class: 'field' }, [
@@ -542,13 +541,12 @@ export const editPdf = {
           color,
         ]),
         el('div', { class: 'field' }, [
-          el('div', { class: 'switch' }, [
+          el('label', { class: 'switch' }, [
             el('div', { class: 'switch__text' }, [
               document.createTextNode('Add to every page'),
               el('small', { text: 'Otherwise only the selected page is changed.' }),
             ]),
-            el('label', { class: 'switch__track' }),
-            all,
+            el('span', { class: 'switch__track' }, [all]),
           ]),
         ]),
       ]),
@@ -845,13 +843,12 @@ export const scanPdf = {
       node: el('div', {}, [
         el('div', { class: 'panel__title', text: 'Scan to PDF' }),
         el('div', { class: 'field' }, [
-          el('div', { class: 'switch' }, [
+          el('label', { class: 'switch' }, [
             el('div', { class: 'switch__text' }, [
               document.createTextNode('Grayscale'),
               el('small', { text: 'Much smaller files for text documents.' }),
             ]),
-            el('label', { class: 'switch__track' }),
-            grayscale,
+            el('span', { class: 'switch__track' }, [grayscale]),
           ]),
         ]),
         el('div', { class: 'field' }, [

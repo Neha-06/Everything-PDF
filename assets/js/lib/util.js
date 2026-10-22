@@ -225,13 +225,14 @@ export function switchField(label, hint, checked = false, onChange) {
   const input = el('input', { type: 'checkbox', checked: checked || undefined });
   input.addEventListener('change', () => onChange && onChange(input.checked));
   const wrap = el('div', { class: 'field' }, [
-    el('div', { class: 'switch' }, [
+    // The whole row is the label, so the text and the track both toggle it
+    // and screen readers get the visible text as the control's name.
+    el('label', { class: 'switch' }, [
       el('div', { class: 'switch__text' }, [
         document.createTextNode(label),
         hint ? el('small', { text: hint }) : null,
       ]),
-      el('label', { class: 'switch__track' }),
-      input,
+      el('span', { class: 'switch__track' }, [input]),
     ]),
   ]);
   return {

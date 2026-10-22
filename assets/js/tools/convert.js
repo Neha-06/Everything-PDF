@@ -267,13 +267,12 @@ export const pdfToWord = {
           text: 'Every page becomes a paragraph. Images and complex layouts are not carried over.',
         }),
         el('div', { class: 'field' }, [
-          el('div', { class: 'switch' }, [
+          el('label', { class: 'switch' }, [
             el('div', { class: 'switch__text' }, [
               document.createTextNode('Add page headings'),
               el('small', { text: 'Separates the text of each page.' }),
             ]),
-            el('label', { class: 'switch__track' }),
-            headings,
+            el('span', { class: 'switch__track' }, [headings]),
           ]),
         ]),
       ]),
@@ -407,13 +406,12 @@ export const pdfToExcel = {
           text: 'Text lines become rows. Two or more spaces between words are treated as a column break.',
         }),
         el('div', { class: 'field' }, [
-          el('div', { class: 'switch' }, [
+          el('label', { class: 'switch' }, [
             el('div', { class: 'switch__text' }, [
               document.createTextNode('One sheet per page'),
               el('small', { text: 'Keeps pages separate in the workbook.' }),
             ]),
-            el('label', { class: 'switch__track' }),
-            headings,
+            el('span', { class: 'switch__track' }, [headings]),
           ]),
         ]),
       ]),
@@ -590,13 +588,12 @@ export const pdfToPowerpoint = {
           text: 'The first line of each page becomes the slide title and the rest becomes the body text.',
         }),
         el('div', { class: 'field' }, [
-          el('div', { class: 'switch' }, [
+          el('label', { class: 'switch' }, [
             el('div', { class: 'switch__text' }, [
               document.createTextNode('Use first line as title'),
               el('small', { text: 'Uncheck to put everything in the body.' }),
             ]),
-            el('label', { class: 'switch__track' }),
-            headings,
+            el('span', { class: 'switch__track' }, [headings]),
           ]),
         ]),
       ]),
@@ -783,13 +780,12 @@ export const htmlToPdf = {
           orientation,
         ]),
         el('div', { class: 'field' }, [
-          el('div', { class: 'switch' }, [
+          el('label', { class: 'switch' }, [
             el('div', { class: 'switch__text' }, [
               document.createTextNode('Keep page background'),
               el('small', { text: 'Includes colours behind the text.' }),
             ]),
-            el('label', { class: 'switch__track' }),
-            full,
+            el('span', { class: 'switch__track' }, [full]),
           ]),
         ]),
       ]),
@@ -1018,23 +1014,21 @@ export const pdfToMarkdown = {
       node: el('div', {}, [
         el('div', { class: 'panel__title', text: 'PDF to Markdown' }),
         el('div', { class: 'field' }, [
-          el('div', { class: 'switch' }, [
+          el('label', { class: 'switch' }, [
             el('div', { class: 'switch__text' }, [
               document.createTextNode('Add page headings'),
               el('small', { text: 'Writes "# Page 1" before every page.' }),
             ]),
-            el('label', { class: 'switch__track' }),
-            headings,
+            el('span', { class: 'switch__track' }, [headings]),
           ]),
         ]),
         el('div', { class: 'field' }, [
-          el('div', { class: 'switch' }, [
+          el('label', { class: 'switch' }, [
             el('div', { class: 'switch__text' }, [
               document.createTextNode('Wrap code blocks'),
               el('small', { text: 'Puts the text inside fenced code blocks.' }),
             ]),
-            el('label', { class: 'switch__track' }),
-            code,
+            el('span', { class: 'switch__track' }, [code]),
           ]),
         ]),
       ]),

@@ -87,15 +87,6 @@ main#app {
   height: 19px;
 }
 
-.brand__sub {
-  color: var(--muted-foreground);
-  font-weight: 400;
-  font-size: 0.8125rem;
-  padding-left: 10px;
-  margin-left: 2px;
-  border-left: 1px solid var(--border);
-}
-
 .nav {
   margin-left: auto;
   display: flex;
@@ -415,30 +406,6 @@ main#app {
   opacity: 0.85;
 }
 
-.hero__badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  margin-bottom: 20px;
-  padding: 6px 14px 6px 11px;
-  border-radius: 999px;
-  border: 1px solid color-mix(in oklab, var(--primary) 26%, var(--border));
-  background: color-mix(in oklab, var(--primary) 8%, var(--card));
-  color: color-mix(in oklab, var(--primary) 74%, var(--foreground));
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: var(--shadow-sm);
-}
-
-.hero__badge svg {
-  width: 14px;
-  height: 14px;
-  opacity: 0.9;
-}
-
 .hero__title {
   font-size: clamp(2.15rem, 5.4vw, 3.6rem);
   font-weight: 600;
@@ -537,36 +504,6 @@ main#app {
   letter-spacing: 0.09em;
   font-size: 0.62rem;
   font-weight: 500;
-}
-
-.hero__author {
-  margin-top: 26px;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.84rem;
-  color: var(--muted-foreground);
-}
-
-.hero__author strong {
-  color: var(--foreground);
-  font-weight: 600;
-}
-
-.hero__author-avatar {
-  display: grid;
-  place-items: center;
-  width: 26px;
-  height: 26px;
-  flex: none;
-  border-radius: 999px;
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: var(--primary-foreground);
-  background: linear-gradient(135deg, var(--primary), #00b4bb);
-  box-shadow: 0 0 0 1px color-mix(in oklab, var(--primary) 28%, transparent),
-    0 6px 12px -8px color-mix(in oklab, var(--primary) 90%, transparent);
 }
 
 /* ---------- Search field ---------- */
@@ -1154,6 +1091,8 @@ main#app {
   justify-content: space-between;
   gap: 12px;
   padding: 9px 0;
+  cursor: pointer;
+  user-select: none;
 }
 
 .switch__text {
@@ -1167,8 +1106,17 @@ main#app {
   margin-top: 2px;
 }
 
+/* Keep the checkbox in the accessibility tree and focusable, but invisible. */
 .switch input {
-  display: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 .switch__track {
@@ -1179,8 +1127,12 @@ main#app {
   border: 1px solid var(--border);
   position: relative;
   cursor: pointer;
-  transition: background-color 0.18s ease;
+  transition: background-color 0.18s ease, border-color 0.18s ease;
   flex: none;
+}
+
+.switch:hover .switch__track {
+  border-color: color-mix(in oklab, var(--primary) 35%, var(--border));
 }
 
 .switch__track::after {
@@ -1191,19 +1143,24 @@ main#app {
   width: 17px;
   height: 17px;
   border-radius: 999px;
-  background: var(--foreground);
-  transition: transform 0.18s ease;
+  background: color-mix(in oklab, var(--foreground) 72%, transparent);
+  transition: transform 0.18s ease, background-color 0.18s ease;
   box-shadow: var(--shadow-sm);
 }
 
-.switch input:checked + .switch__track {
+.switch__track:has(input:checked) {
   background: var(--primary);
   border-color: transparent;
 }
 
-.switch input:checked + .switch__track::after {
+.switch__track:has(input:checked)::after {
   transform: translateX(17px);
   background: var(--primary-foreground);
+}
+
+.switch__track:has(input:focus-visible) {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 
 /* Range */
@@ -1841,6 +1798,14 @@ main#app {
   line-height: 1.6;
 }
 
+.site-footer__note {
+  margin-top: 8px;
+  max-width: 38ch;
+  font-size: 0.75rem;
+  line-height: 1.55;
+  color: color-mix(in oklab, var(--muted-foreground) 86%, transparent);
+}
+
 .site-footer__pill {
   display: inline-flex;
   align-items: center;
@@ -2098,12 +2063,5 @@ main#app {
   }
   .hero__stat:nth-child(n + 3) {
     border-top: 1px solid var(--border);
-  }
-  .hero__badge {
-    font-size: 0.72rem;
-  }
-  .hero__author {
-    flex-direction: column;
-    gap: 7px;
   }
 }
