@@ -1,6 +1,6 @@
 # PDF Tools
 
-A complete, **fully client-side** PDF toolkit
+A complete, **fully client-side** PDF toolkit.
 Every file is processed by JavaScript **inside your browser tab**. Nothing is
 uploaded, there is no backend, no account and no watermark.
 
