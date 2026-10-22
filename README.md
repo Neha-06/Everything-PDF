@@ -4,6 +4,8 @@ A complete, **fully client-side** PDF toolkit.
 Every file is processed by JavaScript **inside your browser tab**. Nothing is
 uploaded, there is no backend, no account and no watermark.
 
+Designed and developed by **[Neha Ratna Mishra](https://github.com/Neha-06)**.
+
 ---
 
 ## Quick start
@@ -331,6 +333,15 @@ import('/tests/compress.js').then((m) => m.run());
 * No network request is made at all: every library, font, PDF.js data file and
   the OCR language model is served from this repository.
 * Passwords are used to derive keys locally and are never stored.
+
+---
+
+## Author
+
+Designed and developed by **Neha Ratna Mishra** — [github.com/Neha-06](https://github.com/Neha-06).
+
+The credit is part of the interface too: it sits in the header brand, under the
+home hero, and in the footer developer card, so it always ships with the site.
 
 ---
 
