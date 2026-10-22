@@ -1,10 +1,34 @@
 /* ZIP handling (JSZip) + shared OOXML writers. */
-import JSZip from 'https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm';
+const JSZIP_SOURCE = new URL('../../vendor/jszip.min.js', import.meta.url).href;
 
-export { JSZip };
+let zipPending = null;
+
+/** Load the bundled JSZip (UMD build) and hand back its global. */
+export async function loadJSZip() {
+  if (globalThis.JSZip) return globalThis.JSZip;
+  if (!zipPending) {
+    zipPending = new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = JSZIP_SOURCE;
+      script.async = true;
+      script.onload = () =>
+        globalThis.JSZip
+          ? resolve(globalThis.JSZip)
+          : reject(new Error('The ZIP library loaded but did not register'));
+      script.onerror = () => reject(new Error('Could not load the bundled ZIP library'));
+      document.head.append(script);
+    });
+  }
+  return zipPending;
+}
+
+async function newZip() {
+  const JSZip = await loadJSZip();
+  return new JSZip();
+}
 
 export async function zipFiles(entries, { name = 'archive.zip' } = {}) {
-  const zip = new JSZip();
+  const zip = await newZip();
   for (const entry of entries) {
     zip.file(entry.name, entry.data);
   }
@@ -31,7 +55,7 @@ function esc(s) {
  * blocks: { type: 'p' | 'h1' | 'h2' | 'h3' | 'li', text: string }
  */
 export async function buildDocx(blocks, { title = 'Document' } = {}) {
-  const zip = new JSZip();
+  const zip = await newZip();
 
   const contentTypes = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
@@ -110,7 +134,7 @@ export async function buildDocx(blocks, { title = 'Document' } = {}) {
  * sheets: [{ name, rows: string[][] }]
  */
 export async function buildXlsx(sheets, { title = 'Sheet1' } = {}) {
-  const zip = new JSZip();
+  const zip = await newZip();
 
   const sheetOverrides = sheets
     .map(
@@ -218,7 +242,7 @@ function textOf(node) {
 
 /** Read a .docx and return an array of blocks. */
 export async function readDocx(data) {
-  const zip = await JSZip.loadAsync(data);
+  const zip = await (await loadJSZip()).loadAsync(data);
   const entry = zip.file('word/document.xml');
   if (!entry) throw new Error('Not a valid Word document.');
   const xml = parseXml(await entry.async('string'));
@@ -254,7 +278,7 @@ export async function readDocx(data) {
 
 /** Read an .xlsx and return sheets of rows. */
 export async function readXlsx(data) {
-  const zip = await JSZip.loadAsync(data);
+  const zip = await (await loadJSZip()).loadAsync(data);
   const shared = [];
   const sharedEntry = zip.file('xl/sharedStrings.xml');
   if (sharedEntry) {
@@ -297,7 +321,7 @@ export async function readXlsx(data) {
 
 /** Read a .pptx and return slides of text blocks. */
 export async function readPptx(data) {
-  const zip = await JSZip.loadAsync(data);
+  const zip = await (await loadJSZip()).loadAsync(data);
   const slideFiles = Object.keys(zip.files).filter((f) => /^ppt\/slides\/slide\d+\.xml$/.test(f));
   slideFiles.sort((a, b) => Number(a.match(/\d+/)[0]) - Number(b.match(/\d+/)[0]));
 

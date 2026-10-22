@@ -341,7 +341,10 @@ function formatSize(bytes) {
 
 /* -------------------------------------------------------------- OCR PDF */
 
-const TESSERACT_CDN = 'https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js';
+const TESSERACT_SOURCE = new URL('../../vendor/tesseract.min.js', import.meta.url).href;
+const TESSERACT_WORKER = new URL('../../vendor/tesseract/worker.min.js', import.meta.url).href;
+const TESSERACT_CORE = new URL('../../vendor/tesseract/core', import.meta.url).href;
+const TESSERACT_LANG = new URL('../../vendor/tesseract/lang', import.meta.url).href;
 
 let tesseractPending = null;
 
@@ -350,13 +353,13 @@ function loadTesseract() {
   if (!tesseractPending) {
     tesseractPending = new Promise((resolve, reject) => {
       const script = document.createElement('script');
-      script.src = TESSERACT_CDN;
+      script.src = TESSERACT_SOURCE;
       script.async = true;
       script.onload = () =>
         globalThis.Tesseract
           ? resolve(globalThis.Tesseract)
           : reject(new Error('The OCR engine did not start.'));
-      script.onerror = () => reject(new Error('Could not download the OCR engine.'));
+      script.onerror = () => reject(new Error('Could not load the bundled OCR engine.'));
       document.head.append(script);
     });
   }
@@ -405,6 +408,9 @@ export const ocrPdf = {
     const font = await out.embedFont(lib.StandardFonts.Helvetica);
 
     const worker = await Tesseract.createWorker('eng', 1, {
+      workerPath: TESSERACT_WORKER,
+      corePath: TESSERACT_CORE,
+      langPath: TESSERACT_LANG,
       logger: (message) => {
         if (message.status && typeof message.progress === 'number') {
           ctx.progress(

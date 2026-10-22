@@ -542,6 +542,29 @@ export const excelToPdf = {
 
 /* ------------------------------------------------------- PDF → PowerPoint */
 
+const PPTXGEN_SOURCE = new URL('../../vendor/pptxgen.bundle.js', import.meta.url).href;
+
+let pptxPending = null;
+
+/** Load the bundled PptxGenJS (UMD build, JSZip included). */
+function loadPptxGen() {
+  if (globalThis.PptxGenJS) return Promise.resolve(globalThis.PptxGenJS);
+  if (!pptxPending) {
+    pptxPending = new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = PPTXGEN_SOURCE;
+      script.async = true;
+      script.onload = () =>
+        globalThis.PptxGenJS
+          ? resolve(globalThis.PptxGenJS)
+          : reject(new Error('The PowerPoint writer did not start.'));
+      script.onerror = () => reject(new Error('Could not load the bundled PowerPoint writer.'));
+      document.head.append(script);
+    });
+  }
+  return pptxPending;
+}
+
 export const pdfToPowerpoint = {
   id: 'pdf-to-powerpoint',
   name: 'PDF to PowerPoint',
@@ -582,7 +605,7 @@ export const pdfToPowerpoint = {
   },
 
   async run(ctx) {
-    const PptxGenJS = (await import('https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/+esm')).default;
+    const PptxGenJS = await loadPptxGen();
     const pages = await pdfText(ctx.files[0]);
     if (!pages.length) throw new Error('The document has no pages.');
 
@@ -701,7 +724,7 @@ export const powerpointToPdf = {
 
 /* ---------------------------------------------------------- HTML → PDF */
 
-const HTML2CANVAS_CDN = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+const HTML2CANVAS_SOURCE = new URL('../../vendor/html2canvas.min.js', import.meta.url).href;
 
 let html2canvasPending = null;
 
@@ -710,7 +733,7 @@ function loadHtml2Canvas() {
   if (!html2canvasPending) {
     html2canvasPending = new Promise((resolve, reject) => {
       const script = document.createElement('script');
-      script.src = HTML2CANVAS_CDN;
+      script.src = HTML2CANVAS_SOURCE;
       script.async = true;
       script.onload = () =>
         globalThis.html2canvas

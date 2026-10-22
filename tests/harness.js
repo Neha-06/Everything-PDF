@@ -12,7 +12,7 @@ import { TOOLS } from '../assets/js/tools/index.js';
 import { el } from '../assets/js/lib/util.js';
 import { loadPdfLib } from '../assets/js/lib/pdf-lib.js';
 import { openDocument } from '../assets/js/lib/pdfjs.js';
-import { buildDocx, buildXlsx, JSZip } from '../assets/js/lib/zip.js';
+import { buildDocx, buildXlsx, loadJSZip } from '../assets/js/lib/zip.js';
 
 /* ------------------------------------------------------------- utilities */
 
@@ -86,6 +86,7 @@ async function makeImageBlob(type = 'image/jpeg') {
 }
 
 async function makePptx() {
+  const JSZip = await loadJSZip();
   const zip = new JSZip();
   zip.file(
     '[Content_Types].xml',

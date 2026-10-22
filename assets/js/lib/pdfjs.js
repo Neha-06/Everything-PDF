@@ -1,10 +1,18 @@
 /*
  * PDF.js wrapper — page rasterisation + text extraction.
+ *
+ * The library, its worker, the CMaps and the standard fonts are all bundled in
+ * assets/vendor/pdfjs, so rendering never depends on a CDN.
  */
-import * as pdfjs from 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/build/pdf.min.mjs';
+import * as pdfjs from '../../vendor/pdf.min.mjs';
 
-pdfjs.GlobalWorkerOptions.workerSrc =
-  'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/build/pdf.worker.min.mjs';
+const CMAP_URL = new URL('../../vendor/pdfjs/cmaps/', import.meta.url).href;
+const STANDARD_FONTS_URL = new URL('../../vendor/pdfjs/standard_fonts/', import.meta.url).href;
+
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+  '../../vendor/pdf.worker.min.mjs',
+  import.meta.url
+).href;
 
 export { pdfjs };
 
@@ -21,7 +29,12 @@ export class PasswordRequiredError extends Error {
  * @param {ArrayBuffer|Uint8Array} data
  */
 export async function openDocument(data, { password } = {}) {
-  const params = { data: data instanceof Uint8Array ? data : new Uint8Array(data) };
+  const params = {
+    data: data instanceof Uint8Array ? data : new Uint8Array(data),
+    cMapUrl: CMAP_URL,
+    cMapPacked: true,
+    standardFontDataUrl: STANDARD_FONTS_URL,
+  };
   if (password !== undefined) params.password = password;
   try {
     return await pdfjs.getDocument(params).promise;

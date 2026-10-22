@@ -7,7 +7,7 @@
  *
  * Loaded as a classic script so the app keeps working without a bundler.
  */
-const CDN = 'https://cdn.jsdelivr.net/npm/@pdfme/pdf-lib@1.18.4/dist/pdf-lib.min.js';
+const SOURCE = new URL('../../vendor/pdf-lib.min.js', import.meta.url).href;
 
 let pending = null;
 
@@ -16,13 +16,13 @@ export async function loadPdfLib() {
   if (!pending) {
     pending = new Promise((resolve, reject) => {
       const script = document.createElement('script');
-      script.src = CDN;
+      script.src = SOURCE;
       script.async = true;
       script.onload = () =>
         globalThis.PDFLib
           ? resolve(globalThis.PDFLib)
           : reject(new Error('PDF library loaded but did not register'));
-      script.onerror = () => reject(new Error('Could not reach the PDF library CDN'));
+      script.onerror = () => reject(new Error('Could not load the bundled PDF library'));
       document.head.append(script);
     });
   }
