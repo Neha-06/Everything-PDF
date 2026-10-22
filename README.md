@@ -312,9 +312,6 @@ import('/tests/compress.js').then((m) => m.run());
 
 ## Notes and licence
 
-* The theme is a faithful re-implementation of the design tokens and component
-  styling of `tools.ankitjha.com.np`.
-* The tool catalogue mirrors `ilovepdf.com`.
 * Third-party libraries keep their own licences (MIT / Apache-2.0). `pdf-lib`
   is MIT, `pdf.js` is Apache-2.0, JSZip is MIT, PptxGenJS is MIT,
   html2canvas is MIT and Tesseract.js is Apache-2.0.
