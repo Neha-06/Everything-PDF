@@ -1,9 +1,6 @@
 # PDF Tools
 
-A complete, **fully client-side** PDF toolkit — 30 tools that mirror the
-iLovePDF catalogue — with the visual theme of
-[tools.ankitjha.com.np](https://tools.ankitjha.com.np).
-
+A complete, **fully client-side** PDF toolkit
 Every file is processed by JavaScript **inside your browser tab**. Nothing is
 uploaded, there is no backend, no account and no watermark.
 
