@@ -431,7 +431,7 @@ function render() {
     const tool = getTool(route.id);
     if (tool) {
       buildToolPage(app, tool);
-      document.title = `${tool.name} - PDF Tools`;
+      document.title = `${tool.name} | PDF Tools`;
       return;
     }
     app.append(
@@ -445,12 +445,12 @@ function render() {
         ]),
       ])
     );
-    document.title = 'Not found - PDF Tools';
+    document.title = 'Not found | PDF Tools';
     return;
   }
 
   buildHome(app);
-  document.title = 'PDF Tools - every PDF tool in one place';
+  document.title = 'PDF Tools | Every PDF tool in one place';
 }
 
 /* ----------------------------------------------------------------- boot */

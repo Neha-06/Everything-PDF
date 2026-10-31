@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="PDF Tools">
+  <defs>
+    <linearGradient id="bg" x1="6" y1="4" x2="58" y2="62" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3fb9e2" />
+      <stop offset="0.52" stop-color="#0b8abd" />
+      <stop offset="1" stop-color="#005f8c" />
+    </linearGradient>
+    <linearGradient id="paper" x1="22" y1="9" x2="44" y2="55" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff" />
+      <stop offset="1" stop-color="#e8f5fb" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#bg)" />
+  <path
+    d="M20 9h17.5L47 19v31a5 5 0 0 1-5 5H20a5 5 0 0 1-5-5V14a5 5 0 0 1 5-5Z"
+    fill="url(#paper)"
+  />
+  <path d="M37.5 9v7.5a2.5 2.5 0 0 0 2.5 2.5h7Z" fill="#bfe4f5" />
+  <path
+    d="M23 31h17M23 38h17M23 45h10"
+    fill="none"
+    stroke="#0b8abd"
+    stroke-width="3.6"
+    stroke-linecap="round"
+  />
+</svg>
