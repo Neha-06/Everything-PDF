@@ -130,6 +130,9 @@ main#app {
   left: auto;
   min-width: 620px;
   max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 84px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 14px;
   border-radius: var(--radius);
   border: 1px solid var(--border);
@@ -143,16 +146,30 @@ main#app {
   gap: 6px 18px;
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
   transform: translateY(-6px);
   transition: opacity 0.16s ease, transform 0.16s ease, visibility 0.16s;
   z-index: 60;
 }
 
-.dropdown:hover .dropdown__panel,
-.dropdown:focus-within .dropdown__panel {
+.dropdown.is-open .dropdown__panel {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
   transform: translateY(0);
+}
+
+.dropdown.is-open .dropdown__trigger {
+  color: var(--foreground);
+  background: var(--muted);
+}
+
+.dropdown__chevron {
+  transition: transform 0.18s ease;
+}
+
+.dropdown.is-open .dropdown__chevron {
+  transform: rotate(180deg);
 }
 
 .dropdown__group-title {

@@ -38,7 +38,7 @@ function buildHeader() {
     el('span', { text: 'PDF Tools' }),
   ]);
 
-  const panel = el('div', { class: 'dropdown__panel' });
+  const panel = el('div', { class: 'dropdown__panel', id: 'tools-menu' });
   for (const group of GROUPS) {
     panel.append(el('div', { class: 'dropdown__group-title', text: group.label }));
     for (const tool of toolsInGroup(group.id)) {
@@ -51,14 +51,54 @@ function buildHeader() {
     }
   }
 
-  const dropdown = el('div', { class: 'dropdown' }, [
-    el('button', { class: 'nav__link', type: 'button' }, [
+  const trigger = el(
+    'button',
+    {
+      class: 'nav__link dropdown__trigger',
+      type: 'button',
+      'aria-haspopup': 'true',
+      'aria-expanded': 'false',
+      'aria-controls': 'tools-menu',
+    },
+    [
       icon('grid', 15),
       el('span', { text: 'All PDF tools' }),
-      icon('chevron-down', 14),
-    ]),
-    panel,
-  ]);
+      icon('chevron-down', 14, 'dropdown__chevron'),
+    ]
+  );
+
+  const dropdown = el('div', { class: 'dropdown' }, [trigger, panel]);
+
+  const onPointerDown = (event) => {
+    if (!dropdown.contains(event.target)) setOpen(false);
+  };
+  const onKeyDown = (event) => {
+    if (event.key !== 'Escape') return;
+    setOpen(false);
+    trigger.focus();
+  };
+
+  function setOpen(open) {
+    dropdown.classList.toggle('is-open', open);
+    trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open) {
+      document.addEventListener('pointerdown', onPointerDown, true);
+      document.addEventListener('keydown', onKeyDown);
+    } else {
+      document.removeEventListener('pointerdown', onPointerDown, true);
+      document.removeEventListener('keydown', onKeyDown);
+    }
+  }
+
+  trigger.addEventListener('click', () => setOpen(!dropdown.classList.contains('is-open')));
+  panel.addEventListener('click', (event) => {
+    if (event.target.closest('a')) setOpen(false);
+  });
+  // Tabbing out of the menu closes it; so does navigating to a tool.
+  dropdown.addEventListener('focusout', (event) => {
+    if (!dropdown.contains(event.relatedTarget)) setOpen(false);
+  });
+  window.addEventListener('hashchange', () => setOpen(false));
 
   const toggle = el('button', {
     class: 'theme-toggle',
