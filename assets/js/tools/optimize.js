@@ -1,5 +1,5 @@
 /*
- * Optimize tools — compress and OCR.
+ * Optimize tools - compress and OCR.
  */
 import { el } from '../lib/util.js';
 import { loadPdfLib } from '../lib/pdf-lib.js';
@@ -78,7 +78,7 @@ async function pageHasImages(doc, pageNumber) {
 }
 
 /**
- * Rewrite the file with object streams — no quality loss at all:
+ * Rewrite the file with object streams - no quality loss at all:
  * the text stays selectable and the vector graphics stay sharp.
  */
 async function losslessBytes(doc) {
@@ -96,7 +96,7 @@ async function rasterBytes(data, lib, level, grayscale, onProgress) {
   try {
     view = await openDocument(data.slice(0));
   } catch {
-    return null; // encrypted or damaged — the lossless pass still works
+    return null; // encrypted or damaged - the lossless pass still works
   }
 
   const src = await lib.PDFDocument.load(data, { ignoreEncryption: true });
@@ -115,7 +115,7 @@ async function rasterBytes(data, lib, level, grayscale, onProgress) {
           out.addPage(copied);
           continue;
         } catch {
-          /* could not copy the page — fall through and rasterise it */
+          /* could not copy the page - fall through and rasterise it */
         }
       }
 
@@ -133,7 +133,7 @@ async function rasterBytes(data, lib, level, grayscale, onProgress) {
     await view.destroy();
   }
 
-  if (!rasterised) return null; // nothing to re-encode — the lossless pass is better
+  if (!rasterised) return null; // nothing to re-encode - the lossless pass is better
   return { bytes: await out.save({ useObjectStreams: true }), rasterised, pages };
 }
 
@@ -155,7 +155,7 @@ async function compressFile(data, lib, level, grayscale, onProgress) {
       rasterised: 0,
     });
   } catch {
-    /* damaged file — the original stays in the race */
+    /* damaged file - the original stays in the race */
   }
 
   try {
@@ -169,7 +169,7 @@ async function compressFile(data, lib, level, grayscale, onProgress) {
       if (!pages) pages = raster.pages;
     }
   } catch {
-    /* rendering is best effort — the lossless pass still works */
+    /* rendering is best effort - the lossless pass still works */
   }
 
   let best = candidates[0];
@@ -184,13 +184,13 @@ export const compressPdf = {
   name: 'Compress PDF',
   group: 'optimize',
   tag: 'Optimize',
-  desc: 'Shrink a PDF without ever making it bigger — images are re-encoded, text stays crisp.',
+  desc: 'Shrink a PDF without ever making it bigger - images are re-encoded, text stays crisp.',
   icon: 'zap',
   accept: '.pdf,application/pdf',
   multiple: true,
   actionLabel: 'Compress PDF',
   dropTitle: 'Drop your PDFs here',
-  dropHint: 'or click to browse — bigger reductions need lower image quality',
+  dropHint: 'or click to browse - bigger reductions need lower image quality',
   acceptLabel: 'PDF',
   validate: (file) => /\.pdf$/i.test(file.name) || file.type === 'application/pdf',
 
@@ -228,7 +228,7 @@ export const compressPdf = {
           el('label', { class: 'switch' }, [
             el('div', { class: 'switch__text' }, [
               document.createTextNode('Convert to grayscale'),
-              el('small', { text: 'Removes colour from image pages — usually a big saving.' }),
+              el('small', { text: 'Removes colour from image pages - usually a big saving.' }),
             ]),
             el('span', { class: 'switch__track' }, [grayInput]),
           ]),
@@ -295,20 +295,20 @@ export const compressPdf = {
     let description;
     if (untouchedFiles === total) {
       description =
-        'This PDF was already stored in the most compact way possible — re-encoding the pages would only make it bigger.';
+        'This PDF was already stored in the most compact way possible - re-encoding the pages would only make it bigger.';
     } else if (rasterisedPages > 0) {
       const kept = Math.max(0, totalPages - rasterisedPages);
       const keptText = kept
         ? `, ${kept} page${kept === 1 ? '' : 's'} kept as vectors`
         : '';
       description = good
-        ? `${pct}% smaller — ${rasterisedPages} image page${rasterisedPages === 1 ? '' : 's'} re-encoded${keptText}.`
+        ? `${pct}% smaller - ${rasterisedPages} image page${rasterisedPages === 1 ? '' : 's'} re-encoded${keptText}.`
         : 'The image pages were re-encoded, but the file stayed about the same size.';
       if (grayscale) description += ' Colour was removed from the image pages.';
     } else {
       description = good
-        ? `${pct}% smaller — the document was rewritten losslessly, so the text stays selectable and the vectors stay sharp.`
-        : 'This document was already well optimised — it was rewritten losslessly for about the same size.';
+        ? `${pct}% smaller - the document was rewritten losslessly, so the text stays selectable and the vectors stay sharp.`
+        : 'This document was already well optimised - it was rewritten losslessly for about the same size.';
     }
 
     return {
@@ -376,7 +376,7 @@ export const ocrPdf = {
   multiple: false,
   actionLabel: 'Run OCR',
   dropTitle: 'Drop a scanned PDF here',
-  dropHint: 'or click to browse — the pages are read with OCR and become searchable',
+  dropHint: 'or click to browse - the pages are read with OCR and become searchable',
   acceptLabel: 'PDF',
   validate: (file) => /\.pdf$/i.test(file.name) || file.type === 'application/pdf',
 
@@ -387,7 +387,7 @@ export const ocrPdf = {
         el('div', { class: 'panel__title', text: 'OCR PDF' }),
         el('div', {
           class: 'panel__desc',
-          text: 'The OCR engine runs locally in your browser — no page is ever uploaded. Scanned pages become searchable and selectable.',
+          text: 'The OCR engine runs locally in your browser - no page is ever uploaded. Scanned pages become searchable and selectable.',
         }),
         el('div', { class: 'note' }, [
           el('span', { text: `${pages} page${pages === 1 ? '' : 's'} to read. The English model ships with the app and is cached locally after the first run.` }),
@@ -467,7 +467,7 @@ export const ocrPdf = {
       blob: new Blob([bytes], { type: 'application/pdf' }),
       filename: `${tidyName(ctx.files[0].name)}-ocr.pdf`,
       title: 'OCR finished',
-      description: 'The document is now searchable — use Ctrl+F in any PDF reader.',
+      description: 'The document is now searchable - use Ctrl+F in any PDF reader.',
       stats: [
         { label: 'Pages', value: String(doc.numPages) },
         { label: 'Words found', value: String(words), good: true },

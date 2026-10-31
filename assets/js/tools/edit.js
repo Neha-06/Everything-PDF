@@ -1,5 +1,5 @@
 /*
- * Edit tools — rotate, watermark, page numbers, crop, add text, redact, scan.
+ * Edit tools - rotate, watermark, page numbers, crop, add text, redact, scan.
  */
 import { el, clear } from '../lib/util.js';
 import { loadPdfLib } from '../lib/pdf-lib.js';
@@ -21,7 +21,7 @@ export const rotatePdf = {
   multiple: false,
   actionLabel: 'Rotate PDF',
   dropTitle: 'Drop a PDF here',
-  dropHint: 'or click to browse — every page is turned by the same amount',
+  dropHint: 'or click to browse - every page is turned by the same amount',
   acceptLabel: 'PDF',
   validate: (file) => /\.pdf$/i.test(file.name) || file.type === 'application/pdf',
 
@@ -144,7 +144,7 @@ export const watermarkPdf = {
   multiple: false,
   actionLabel: 'Add watermark',
   dropTitle: 'Drop a PDF here',
-  dropHint: 'or click to browse — the watermark is added to every page',
+  dropHint: 'or click to browse - the watermark is added to every page',
   acceptLabel: 'PDF',
   validate: (file) => /\.pdf$/i.test(file.name) || file.type === 'application/pdf',
 
@@ -268,7 +268,7 @@ export const pageNumbers = {
   multiple: false,
   actionLabel: 'Add page numbers',
   dropTitle: 'Drop a PDF here',
-  dropHint: 'or click to browse — numbers are added to every page',
+  dropHint: 'or click to browse - numbers are added to every page',
   acceptLabel: 'PDF',
   validate: (file) => /\.pdf$/i.test(file.name) || file.type === 'application/pdf',
 
@@ -395,7 +395,7 @@ export const cropPdf = {
   multiple: false,
   actionLabel: 'Crop PDF',
   dropTitle: 'Drop a PDF here',
-  dropHint: 'or click to browse — set how much should be trimmed off each side',
+  dropHint: 'or click to browse - set how much should be trimmed off each side',
   acceptLabel: 'PDF',
   validate: (file) => /\.pdf$/i.test(file.name) || file.type === 'application/pdf',
 
@@ -499,7 +499,7 @@ export const editPdf = {
   multiple: false,
   actionLabel: 'Save changes',
   dropTitle: 'Drop a PDF here',
-  dropHint: 'or click to browse — then type the text you want to add',
+  dropHint: 'or click to browse - then type the text you want to add',
   acceptLabel: 'PDF',
   validate: (file) => /\.pdf$/i.test(file.name) || file.type === 'application/pdf',
 
@@ -609,13 +609,13 @@ export const redactPdf = {
   name: 'Redact PDF',
   group: 'edit',
   tag: 'Edit',
-  desc: 'Black out sensitive parts of a page — the content is really removed.',
+  desc: 'Black out sensitive parts of a page - the content is really removed.',
   icon: 'eye-off',
   accept: '.pdf,application/pdf',
   multiple: false,
   actionLabel: 'Redact PDF',
   dropTitle: 'Drop a PDF here',
-  dropHint: 'or click to browse — drag over the text you want to hide',
+  dropHint: 'or click to browse - drag over the text you want to hide',
   acceptLabel: 'PDF',
   validate: (file) => /\.pdf$/i.test(file.name) || file.type === 'application/pdf',
 
@@ -820,7 +820,7 @@ export const scanPdf = {
   multiple: true,
   actionLabel: 'Create PDF',
   dropTitle: 'Drop your photos here',
-  dropHint: 'or click to browse — take pictures of a document and turn them into a PDF',
+  dropHint: 'or click to browse - take pictures of a document and turn them into a PDF',
   acceptLabel: 'JPG, PNG or WEBP',
   validate: (file) => /\.(jpe?g|png|webp)$/i.test(file.name) || file.type.startsWith('image/'),
 

@@ -1,5 +1,5 @@
 /*
- * Convert tools — PDF to/from JPG, Word, Excel, PowerPoint, HTML, PDF/A, Markdown.
+ * Convert tools - PDF to/from JPG, Word, Excel, PowerPoint, HTML, PDF/A, Markdown.
  */
 import { el } from '../lib/util.js';
 import { loadPdfLib } from '../lib/pdf-lib.js';
@@ -71,7 +71,7 @@ export const pdfToJpg = {
   multiple: false,
   actionLabel: 'Convert to JPG',
   dropTitle: 'Drop a PDF here',
-  dropHint: 'or click to browse — one image is created per page',
+  dropHint: 'or click to browse - one image is created per page',
   acceptLabel: 'PDF',
   validate: (file) => /\.pdf$/i.test(file.name) || file.type === 'application/pdf',
 
@@ -81,10 +81,10 @@ export const pdfToJpg = {
       el('option', { value: 'png', text: 'PNG (lossless)' }),
     ]);
     const dpi = el('select', { class: 'select' }, [
-      el('option', { value: '96', text: '96 dpi — small' }),
-      el('option', { value: '150', text: '150 dpi — balanced', selected: true }),
-      el('option', { value: '220', text: '220 dpi — sharp' }),
-      el('option', { value: '300', text: '300 dpi — print' }),
+      el('option', { value: '96', text: '96 dpi - small' }),
+      el('option', { value: '150', text: '150 dpi - balanced', selected: true }),
+      el('option', { value: '220', text: '220 dpi - sharp' }),
+      el('option', { value: '300', text: '300 dpi - print' }),
     ]);
     const quality = el('input', { class: 'range', type: 'range', min: '40', max: '100', value: '88' });
     const qualityOut = el('span', { class: 'mono', style: { fontSize: '0.8125rem' }, text: '88' });
@@ -169,7 +169,7 @@ export const jpgToPdf = {
   multiple: true,
   actionLabel: 'Convert to PDF',
   dropTitle: 'Drop your images here',
-  dropHint: 'or click to browse — add as many pictures as you like',
+  dropHint: 'or click to browse - add as many pictures as you like',
   acceptLabel: 'JPG, PNG or WEBP',
   validate: (file) => /\.(jpe?g|png|webp)$/i.test(file.name) || file.type.startsWith('image/'),
 
@@ -253,7 +253,7 @@ export const pdfToWord = {
   multiple: false,
   actionLabel: 'Convert to Word',
   dropTitle: 'Drop a PDF here',
-  dropHint: 'or click to browse — the text is extracted into a .docx file',
+  dropHint: 'or click to browse - the text is extracted into a .docx file',
   acceptLabel: 'PDF',
   validate: (file) => /\.pdf$/i.test(file.name) || file.type === 'application/pdf',
 
@@ -319,7 +319,7 @@ export const wordToPdf = {
   multiple: false,
   actionLabel: 'Convert to PDF',
   dropTitle: 'Drop a Word file here',
-  dropHint: 'or click to browse — .docx documents are supported',
+  dropHint: 'or click to browse - .docx documents are supported',
   acceptLabel: 'DOCX',
   validate: (file) => /\.docx?$/i.test(file.name),
 
@@ -392,7 +392,7 @@ export const pdfToExcel = {
   multiple: false,
   actionLabel: 'Convert to Excel',
   dropTitle: 'Drop a PDF here',
-  dropHint: 'or click to browse — columns are detected from the spacing in the text',
+  dropHint: 'or click to browse - columns are detected from the spacing in the text',
   acceptLabel: 'PDF',
   validate: (file) => /\.pdf$/i.test(file.name) || file.type === 'application/pdf',
 
@@ -465,7 +465,7 @@ export const excelToPdf = {
   multiple: false,
   actionLabel: 'Convert to PDF',
   dropTitle: 'Drop a spreadsheet here',
-  dropHint: 'or click to browse — .xlsx and .csv files are supported',
+  dropHint: 'or click to browse - .xlsx and .csv files are supported',
   acceptLabel: 'XLSX or CSV',
   validate: (file) => /\.(xlsx|csv)$/i.test(file.name),
 
@@ -574,7 +574,7 @@ export const pdfToPowerpoint = {
   multiple: false,
   actionLabel: 'Convert to PowerPoint',
   dropTitle: 'Drop a PDF here',
-  dropHint: 'or click to browse — one slide is created per page',
+  dropHint: 'or click to browse - one slide is created per page',
   acceptLabel: 'PDF',
   validate: (file) => /\.pdf$/i.test(file.name) || file.type === 'application/pdf',
 
@@ -664,7 +664,7 @@ export const powerpointToPdf = {
   multiple: false,
   actionLabel: 'Convert to PDF',
   dropTitle: 'Drop a PowerPoint file here',
-  dropHint: 'or click to browse — .pptx presentations are supported',
+  dropHint: 'or click to browse - .pptx presentations are supported',
   acceptLabel: 'PPTX',
   validate: (file) => /\.pptx$/i.test(file.name),
 
@@ -754,7 +754,7 @@ export const htmlToPdf = {
   multiple: false,
   actionLabel: 'Convert to PDF',
   dropTitle: 'Drop an HTML file here',
-  dropHint: 'or click to browse — the page is rendered exactly as the browser shows it',
+  dropHint: 'or click to browse - the page is rendered exactly as the browser shows it',
   acceptLabel: 'HTML',
   validate: (file) => /\.(html?|xhtml)$/i.test(file.name) || file.type === 'text/html',
 
@@ -882,7 +882,7 @@ export const pdfToPdfa = {
   multiple: false,
   actionLabel: 'Convert to PDF/A',
   dropTitle: 'Drop a PDF here',
-  dropHint: 'or click to browse — the document is rebuilt with archival metadata',
+  dropHint: 'or click to browse - the document is rebuilt with archival metadata',
   acceptLabel: 'PDF',
   validate: (file) => /\.pdf$/i.test(file.name) || file.type === 'application/pdf',
 
@@ -937,7 +937,7 @@ export const pdfToPdfa = {
     out.setSubject(subject);
     if (keywords.length) out.setKeywords(keywords);
     out.setCreator('PDF Tools');
-    out.setProducer('PDF Tools — PDF/A-2b');
+    out.setProducer('PDF Tools - PDF/A-2b');
     out.setCreationDate(new Date());
     out.setModificationDate(new Date());
 
@@ -963,7 +963,7 @@ export const pdfToPdfa = {
       const ref = out.context.register(stream);
       out.catalog.set(lib.PDFName.of('Metadata'), ref);
     } catch {
-      /* metadata is a bonus — the document itself is still valid */
+      /* metadata is a bonus - the document itself is still valid */
     }
 
     ctx.progress(0.9, 'Writing document…');
@@ -1003,7 +1003,7 @@ export const pdfToMarkdown = {
   multiple: false,
   actionLabel: 'Convert to Markdown',
   dropTitle: 'Drop a PDF here',
-  dropHint: 'or click to browse — the text is written as a .md file',
+  dropHint: 'or click to browse - the text is written as a .md file',
   acceptLabel: 'PDF',
   validate: (file) => /\.pdf$/i.test(file.name) || file.type === 'application/pdf',
 

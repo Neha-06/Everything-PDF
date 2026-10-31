@@ -1,5 +1,5 @@
 /*
- * Tool registry — every tool the app exposes.
+ * Tool registry - every tool the app exposes.
  *
  * A tool descriptor looks like:
  *   { id, name, group, tag, desc, icon, accept, multiple,

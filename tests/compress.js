@@ -1,8 +1,8 @@
 /*
  * Focused checks for the Compress PDF tool.
  *
- * The compressor races three candidates — the original bytes, a lossless
- * rewrite and a hybrid that only re-encodes pages containing images — and
+ * The compressor races three candidates - the original bytes, a lossless
+ * rewrite and a hybrid that only re-encodes pages containing images - and
  * keeps the smallest. These checks make sure that:
  *
  *   1. a vector-only PDF never grows (the bug that started all this),
@@ -85,7 +85,7 @@ export async function run() {
     return ok;
   };
 
-  /* 1 — a vector-only PDF must not grow */
+  /* 1 - a vector-only PDF must not grow */
   const vector = await makeVectorPdf();
   const vectorRun = await compress(vector);
   const vectorOut = vectorRun.result.blob.size;
@@ -95,7 +95,7 @@ export async function run() {
     `${vector.size} B -> ${vectorOut} B`
   );
 
-  /* 2 — the text of a vector PDF stays selectable */
+  /* 2 - the text of a vector PDF stays selectable */
   const vectorBytes = new Uint8Array(await vectorRun.result.blob.arrayBuffer());
   const reopened = await openDocument(vectorBytes);
   const text = (await extractDocumentText(reopened)).join(' ').trim();
@@ -106,7 +106,7 @@ export async function run() {
     JSON.stringify(text)
   );
 
-  /* 3 — an image-heavy PDF really shrinks */
+  /* 3 - an image-heavy PDF really shrinks */
   const scanned = await makeScannedPdf();
   const scannedRun = await compress(scanned);
   const scannedOut = scannedRun.result.blob.size;
@@ -116,7 +116,7 @@ export async function run() {
     `${scanned.size} B -> ${scannedOut} B`
   );
 
-  /* 4 — the reported numbers match reality */
+  /* 4 - the reported numbers match reality */
   const stats = Object.fromEntries(
     (vectorRun.result.stats || []).map((s) => [s.label, s.value])
   );
@@ -126,7 +126,7 @@ export async function run() {
     JSON.stringify(stats)
   );
 
-  /* 5 — grayscale never makes the result bigger than the input either */
+  /* 5 - grayscale never makes the result bigger than the input either */
   const grayRun = await compress(vector, { grayscale: true });
   record(
     'grayscale never grows a vector PDF',

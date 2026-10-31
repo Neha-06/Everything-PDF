@@ -47,7 +47,7 @@ async function makeTextPdf(pages, { title = 'Sample document' } = {}) {
   const font = await doc.embedFont(lib.StandardFonts.Helvetica);
   for (let i = 0; i < pages; i++) {
     const page = doc.addPage([595.28, 841.89]);
-    page.drawText(`${title} — page ${i + 1}`, {
+    page.drawText(`${title} - page ${i + 1}`, {
       x: 56,
       y: 760,
       size: 18,

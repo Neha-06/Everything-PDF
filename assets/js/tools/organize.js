@@ -1,5 +1,5 @@
 /*
- * Organize tools — merge, split, reorder, remove, extract, repair.
+ * Organize tools - merge, split, reorder, remove, extract, repair.
  */
 import { el } from '../lib/util.js';
 import { loadPdfLib } from '../lib/pdf-lib.js';
@@ -43,7 +43,7 @@ export const mergePdf = {
   multiple: true,
   actionLabel: 'Merge PDF',
   dropTitle: 'Drop your PDF files here',
-  dropHint: 'or click to browse — add two or more documents and they will be merged top to bottom',
+  dropHint: 'or click to browse - add two or more documents and they will be merged top to bottom',
   acceptLabel: 'PDF',
   validate: (file) => /\.pdf$/i.test(file.name) || file.type === 'application/pdf',
 
@@ -105,7 +105,7 @@ export const splitPdf = {
   multiple: false,
   actionLabel: 'Split PDF',
   dropTitle: 'Drop a PDF here',
-  dropHint: 'or click to browse — the document will be split into separate files',
+  dropHint: 'or click to browse - the document will be split into separate files',
   acceptLabel: 'PDF',
   validate: (file) => /\.pdf$/i.test(file.name) || file.type === 'application/pdf',
 
@@ -260,7 +260,7 @@ export const organizePdf = {
   multiple: false,
   actionLabel: 'Save changes',
   dropTitle: 'Drop a PDF here',
-  dropHint: 'or click to browse — drag pages to re-order them',
+  dropHint: 'or click to browse - drag pages to re-order them',
   acceptLabel: 'PDF',
   validate: (file) => /\.pdf$/i.test(file.name) || file.type === 'application/pdf',
 
@@ -277,7 +277,7 @@ export const organizePdf = {
     const lib = await loadPdfLib();
     const src = await loadDoc(ctx.files[0], lib);
     const order = ctx.options.order || [];
-    if (!order.length) throw new Error('Every page was removed — keep at least one page.');
+    if (!order.length) throw new Error('Every page was removed - keep at least one page.');
 
     const out = await lib.PDFDocument.create();
     const copied = await out.copyPages(src, order);
@@ -316,7 +316,7 @@ export const removePages = {
   multiple: false,
   actionLabel: 'Remove pages',
   dropTitle: 'Drop a PDF here',
-  dropHint: 'or click to browse — then tick the pages you want to delete',
+  dropHint: 'or click to browse - then tick the pages you want to delete',
   acceptLabel: 'PDF',
   validate: (file) => /\.pdf$/i.test(file.name) || file.type === 'application/pdf',
 
@@ -368,7 +368,7 @@ export const extractPages = {
   multiple: false,
   actionLabel: 'Extract pages',
   dropTitle: 'Drop a PDF here',
-  dropHint: 'or click to browse — then choose the pages to extract',
+  dropHint: 'or click to browse - then choose the pages to extract',
   acceptLabel: 'PDF',
   validate: (file) => /\.pdf$/i.test(file.name) || file.type === 'application/pdf',
 
@@ -417,7 +417,7 @@ export const repairPdf = {
   multiple: false,
   actionLabel: 'Repair PDF',
   dropTitle: 'Drop a damaged PDF here',
-  dropHint: 'or click to browse — the file will be rebuilt from scratch',
+  dropHint: 'or click to browse - the file will be rebuilt from scratch',
   acceptLabel: 'PDF',
   validate: (file) => /\.pdf$/i.test(file.name) || file.type === 'application/pdf',
 

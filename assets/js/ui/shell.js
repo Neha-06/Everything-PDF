@@ -1,5 +1,5 @@
 /*
- * Tool shell — the shared iLovePDF-style workspace:
+ * Tool shell - the shared iLovePDF-style workspace:
  * dropzone → file list → option panel → action bar → result card.
  */
 import {
@@ -44,7 +44,7 @@ export function createToolView(tool, mount) {
     el('div', { class: 'dropzone__title', text: tool.dropTitle || 'Drop your file here' }),
     el('div', {
       class: 'dropzone__hint',
-      text: tool.dropHint || `or click to browse — ${tool.acceptLabel || 'PDF'}`,
+      text: tool.dropHint || `or click to browse - ${tool.acceptLabel || 'PDF'}`,
     }),
     el('input', { type: 'file', accept: tool.accept || '.pdf', multiple: tool.multiple ? '' : null }),
   ]);

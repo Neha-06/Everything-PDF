@@ -3,7 +3,7 @@
  *
  * pdf-lib cannot *write* encrypted PDFs, so "Protect PDF" is implemented here
  * directly against the PDF byte format. RC4 is a stream cipher, so ciphertext
- * has exactly the same length as plaintext — which keeps every stream's
+ * has exactly the same length as plaintext - which keeps every stream's
  * /Length entry valid.
  *
  * Reading encrypted PDFs is handled by @pdfme/pdf-lib (`ignoreEncryption`).
@@ -145,12 +145,12 @@ function le32(value) {
 }
 
 /**
- * Algorithm 4 — the /O value.
+ * Algorithm 4 - the /O value.
  *
  * The owner password is hashed (50 extra MD5 rounds for revision 3+) and the
  * resulting key encrypts the padded *user* password.  Each of the 19
  * follow-up rounds uses the original key exclusive-ORed with the round
- * counter — no further hashing.
+ * counter - no further hashing.
  */
 function computeO(ownerPassword, userPassword, R = 3, n = 16) {
   const ownerPad = padPassword(ownerPassword || userPassword);
@@ -169,7 +169,7 @@ function computeO(ownerPassword, userPassword, R = 3, n = 16) {
   return O;
 }
 
-/** Algorithm 2 — the file encryption key. */
+/** Algorithm 2 - the file encryption key. */
 function computeKey(userPassword, O, P, id, R = 3, n = 16) {
   let hash = md5(concat(padPassword(userPassword), O, le32(P), id));
   if (R >= 3) for (let i = 0; i < 50; i++) hash = md5(hash);
@@ -177,7 +177,7 @@ function computeKey(userPassword, O, P, id, R = 3, n = 16) {
 }
 
 /**
- * Algorithm 5 — the /U value.
+ * Algorithm 5 - the /U value.
  *
  * The file encryption key (algorithm 2) encrypts MD5(PAD || ID[0]); the same
  * 19 exclusive-OR rounds as for /O are then applied.
@@ -197,7 +197,7 @@ function computeU(userPassword, O, P, id, R = 3, n = 16) {
 }
 
 /**
- * Algorithm 1 — the per-object key.
+ * Algorithm 1 - the per-object key.
  *
  * The trailing "sAlT" bytes are only part of the key for the AES crypt
  * filters; plain RC4 (/V2, /CFM /V2) leaves them out.
@@ -297,7 +297,7 @@ function readDictBlock(src, pos) {
       if (depth === 0) break;
     }
   }
-  // `j` points at the last ">" of the closing ">>" — the span has to include it.
+  // `j` points at the last ">" of the closing ">>" - the span has to include it.
   const end = Math.min(j + 1, src.length);
   return { start: i, end, text: src.slice(i, end) };
 }
@@ -369,7 +369,7 @@ function parseObjectAt(src, off) {
     const es = src.indexOf('endstream', streamEnd);
     contentEnd = es >= 0 ? es : streamEnd;
     if (streamLength === null) {
-      // The length is unknown — fall back to the bytes before "endstream".
+      // The length is unknown - fall back to the bytes before "endstream".
       let end = contentEnd;
       while (end > streamStart && isWs(src[end - 1])) end--;
       streamEnd = end;
@@ -464,7 +464,7 @@ function encryptDictStrings(src, start, end, key) {
       continue;
     }
 
-    // A dictionary opener — copy both characters and carry on.
+    // A dictionary opener - copy both characters and carry on.
     if (ch === '<' && src[i + 1] === '<') {
       out += '<<';
       i += 2;
@@ -533,7 +533,7 @@ export function encryptPdf(bytes, options = {}) {
     const obj = parseObjectAt(src, off);
     if (!obj) {
       throw new Error(
-        'This document uses a PDF structure that cannot be protected — try re-saving it first.'
+        'This document uses a PDF structure that cannot be protected - try re-saving it first.'
       );
     }
     parsed.set(num, obj);
@@ -608,7 +608,7 @@ export function encryptPdf(bytes, options = {}) {
   const maxNum = encryptNum;
   let table = `xref\n0 ${maxNum + 1}\n`;
   // Every entry must be exactly 20 bytes: 10 digits, SP, 5 digits, SP,
-  // keyword, SP, LF — byte-identical to what pdf-lib writes.
+  // keyword, SP, LF - byte-identical to what pdf-lib writes.
   table += `0000000000 65535 f \n`;
   for (let num = 1; num <= maxNum; num++) {
     if (offsets.has(num)) {

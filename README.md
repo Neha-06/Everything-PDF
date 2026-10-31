@@ -10,7 +10,7 @@ Designed and developed by **[Neha Ratna Mishra](https://github.com/Neha-06)**.
 
 ## Quick start
 
-The project is a plain static site — no build step, no bundler, no `npm`.
+The project is a plain static site - no build step, no bundler, no `npm`.
 Everything it needs (libraries, fonts, PDF.js CMaps and the OCR model) ships in
 the repository, so it also runs with no internet connection.
 
@@ -44,7 +44,7 @@ python -m http.server 4173     # or: npx serve .
 ```
 
 > The app uses ES modules and hash routing (`#/`, `#/tool/<id>`), so it needs
-> to be served over `http://` — opening `index.html` from the file system will
+> to be served over `http://` - opening `index.html` from the file system will
 > fail on the module imports.
 
 ---
@@ -64,7 +64,7 @@ python -m http.server 4173     # or: npx serve .
 ### Optimize
 | Tool | What it does |
 | --- | --- |
-| Compress PDF | Shrink a PDF without ever making it bigger — images are re-encoded, text stays crisp. |
+| Compress PDF | Shrink a PDF without ever making it bigger - images are re-encoded, text stays crisp. |
 | OCR PDF | Recognise the text in scanned pages and make the PDF searchable. |
 
 ### Convert
@@ -90,7 +90,7 @@ python -m http.server 4173     # or: npx serve .
 | Add page numbers | Number the pages of a document in the position you choose. |
 | Crop PDF | Cut away the empty margins around the content of a document. |
 | Edit PDF | Add text to the pages of a document and save the changes. |
-| Redact PDF | Black out sensitive parts of a page — the content is really removed. |
+| Redact PDF | Black out sensitive parts of a page - the content is really removed. |
 | Scan to PDF | Turn photos of documents into a clean, straightened PDF. |
 
 ### Security
@@ -113,7 +113,7 @@ assets/
   fonts/
     fonts.css               # @font-face rules, all URLs local
     font-*.woff2            # self-hosted Geist + Geist Mono subsets
-  vendor/                   # self-hosted libraries — no CDN at runtime
+  vendor/                   # self-hosted libraries - no CDN at runtime
     pdf-lib.min.js          # @pdfme/pdf-lib UMD build
     pdf.min.mjs             # pdf.js ESM build
     pdf.worker.min.mjs      # pdf.js worker
@@ -189,7 +189,7 @@ Every tool is a plain object registered in `assets/js/tools/index.js`:
   multiple: true,
   actionLabel: 'Merge PDF',
   dropTitle: 'Drop your PDF files here',
-  dropHint: 'or click to browse — …',
+  dropHint: 'or click to browse - …',
   validate: (file) => /\.pdf$/i.test(file.name),
 
   async options(ctx) {
@@ -215,7 +215,7 @@ Every tool is a plain object registered in `assets/js/tools/index.js`:
 `assets/js/ui/shell.js` owns the shared workspace and calls exactly these three
 members, so a new tool only has to provide the panel and the work. Adding a
 tool means appending one object to the relevant array in
-`assets/js/tools/*.js` — the grid, the dropdown, the search and the chip
+`assets/js/tools/*.js` - the grid, the dropdown, the search and the chip
 filters all read from the registry automatically.
 
 ### Theme
@@ -244,7 +244,7 @@ candidates and keeps the smallest one:
 
 | Candidate | What it does |
 | --- | --- |
-| `original` | The file exactly as it came in — the safety net. |
+| `original` | The file exactly as it came in - the safety net. |
 | `lossless` | The file rewritten with object streams. No quality loss, text stays selectable, vectors stay sharp. |
 | `raster` | Only the pages that actually contain a bitmap are re-encoded as JPEG at the chosen level; every other page is copied over as vectors. |
 
@@ -254,7 +254,7 @@ is inspected for the `paintImageXObject` / `paintInlineImageXObject` /
 check cannot be made the page is treated as an image page, so no content is
 ever dropped.
 
-The result card reports what actually happened — *Before*, *After*, *Saved* and
+The result card reports what actually happened - *Before*, *After*, *Saved* and
 the *Method* (`Lossless`, `Re-encoded`, `Mixed` or `Unchanged`).
 
 ---
@@ -262,7 +262,7 @@ the *Method* (`Lossless`, `Re-encoded`, `Mixed` or `Unchanged`).
 ## Third-party dependencies
 
 Every library is **vendored** under `assets/vendor/` and loaded from the same
-origin — no CDN, no network lookup, nothing to install. The app therefore keeps
+origin - no CDN, no network lookup, nothing to install. The app therefore keeps
 working offline and is unaffected by CDN outages.
 
 | Library | Version | Used for | Bundled as |
@@ -273,7 +273,7 @@ working offline and is unaffected by CDN outages.
 | [PptxGenJS](https://gitbrent.github.io/PptxGenJS/) | 3.12.0 | Building PowerPoint decks | `assets/vendor/pptxgen.bundle.js` |
 | [html2canvas](https://html2canvas.hertzen.com/) | 1.4.1 | Rendering HTML to PDF | `assets/vendor/html2canvas.min.js` |
 | [Tesseract.js](https://tesseract.projectnaptha.com/) | 5.1.1 | OCR | `tesseract.min.js` + `tesseract/` (worker, LSTM cores, `eng` model) |
-| Geist / Geist Mono | — | Typography | `assets/fonts/` (SIL OFL 1.1) |
+| Geist / Geist Mono | - | Typography | `assets/fonts/` (SIL OFL 1.1) |
 
 The English OCR model (`eng.traineddata.gz`, 2.9 MB) ships with the app, so OCR
 works with no network access as well.
@@ -317,7 +317,7 @@ per-tool result:
 
 All 30 tools currently pass.
 
-`tests/compress.js` covers the Compress PDF tool on its own — it makes sure a
+`tests/compress.js` covers the Compress PDF tool on its own - it makes sure a
 vector-only PDF never grows and keeps its selectable text, that an image-heavy
 PDF really shrinks, and that the reported numbers match the files on disk:
 
@@ -329,7 +329,7 @@ import('/tests/compress.js').then((m) => m.run());
 
 ## Privacy
 
-* No file ever leaves the browser — there is no upload endpoint.
+* No file ever leaves the browser - there is no upload endpoint.
 * No network request is made at all: every library, font, PDF.js data file and
   the OCR language model is served from this repository.
 * Passwords are used to derive keys locally and are never stored.
@@ -338,7 +338,7 @@ import('/tests/compress.js').then((m) => m.run());
 
 ## Author
 
-Designed and developed by **Neha Ratna Mishra** — [github.com/Neha-06](https://github.com/Neha-06).
+Designed and developed by **Neha Ratna Mishra** - [github.com/Neha-06](https://github.com/Neha-06).
 
 The credit is part of the interface too: it sits in the header brand, under the
 home hero, and in the footer developer card, so it always ships with the site.

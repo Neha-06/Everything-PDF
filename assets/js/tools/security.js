@@ -1,5 +1,5 @@
 /*
- * Security tools — unlock, protect, sign and compare.
+ * Security tools - unlock, protect, sign and compare.
  */
 import { el, clear, switchField } from '../lib/util.js';
 import { loadPdfLib } from '../lib/pdf-lib.js';
@@ -83,7 +83,7 @@ export const unlockPdf = {
   multiple: false,
   actionLabel: 'Unlock PDF',
   dropTitle: 'Drop a protected PDF here',
-  dropHint: 'or click to browse — you will be asked for the document password',
+  dropHint: 'or click to browse - you will be asked for the document password',
   acceptLabel: 'PDF',
   validate: (file) => /\.pdf$/i.test(file.name) || file.type === 'application/pdf',
 
@@ -100,7 +100,7 @@ export const unlockPdf = {
         el('div', { class: 'panel__title', text: 'Unlock PDF' }),
         el('div', {
           class: 'panel__desc',
-          text: 'The password is used to decrypt the file locally — it is never sent anywhere.',
+          text: 'The password is used to decrypt the file locally - it is never sent anywhere.',
         }),
         el('div', { class: 'field' }, [
           el('label', { class: 'field__label', text: 'Password' }),
@@ -126,7 +126,7 @@ export const unlockPdf = {
       doc = await lib.PDFDocument.load(bytes, { password: ctx.options.password || undefined });
     } catch (err) {
       if (/password/i.test(err?.message || '')) {
-        throw new Error('That password is not correct — please check it and try again.');
+        throw new Error('That password is not correct - please check it and try again.');
       }
       throw new Error('This document could not be decrypted.');
     }
@@ -135,7 +135,7 @@ export const unlockPdf = {
     const out = await doc.save({ useObjectStreams: false });
 
     if (doc.isEncrypted) {
-      throw new Error('The document is still encrypted — the password was probably wrong.');
+      throw new Error('The document is still encrypted - the password was probably wrong.');
     }
 
     return {
@@ -164,7 +164,7 @@ export const protectPdf = {
   multiple: false,
   actionLabel: 'Protect PDF',
   dropTitle: 'Drop a PDF here',
-  dropHint: 'or click to browse — a password will be added to the document',
+  dropHint: 'or click to browse - a password will be added to the document',
   acceptLabel: 'PDF',
   validate: (file) => /\.pdf$/i.test(file.name) || file.type === 'application/pdf',
 
@@ -187,7 +187,7 @@ export const protectPdf = {
         el('div', { class: 'panel__title', text: 'Protect PDF' }),
         el('div', {
           class: 'panel__desc',
-          text: 'The owner password always grants full access — keep a copy somewhere safe.',
+          text: 'The owner password always grants full access - keep a copy somewhere safe.',
         }),
         el('div', { class: 'field' }, [
           el('label', { class: 'field__label', text: 'User password' }),
@@ -236,7 +236,7 @@ export const protectPdf = {
     try {
       doc = await lib.PDFDocument.load(bytes, { ignoreEncryption: false });
     } catch {
-      throw new Error('This document is already protected — unlock it first.');
+      throw new Error('This document is already protected - unlock it first.');
     }
 
     ctx.progress(0.55, 'Preparing document…');
@@ -258,7 +258,7 @@ export const protectPdf = {
     } catch {
       verified = false;
     }
-    if (!verified) throw new Error('The encryption could not be verified — the file was not produced.');
+    if (!verified) throw new Error('The encryption could not be verified - the file was not produced.');
 
     return {
       blob: new Blob([encrypted], { type: 'application/pdf' }),
@@ -311,7 +311,7 @@ export const signPdf = {
   multiple: false,
   actionLabel: 'Sign PDF',
   dropTitle: 'Drop a PDF here',
-  dropHint: 'or click to browse — then type, draw or upload your signature',
+  dropHint: 'or click to browse - then type, draw or upload your signature',
   acceptLabel: 'PDF',
   validate: (file) => /\.pdf$/i.test(file.name) || file.type === 'application/pdf',
 
@@ -608,7 +608,7 @@ export const comparePdf = {
   multiple: true,
   actionLabel: 'Compare documents',
   dropTitle: 'Drop two PDFs here',
-  dropHint: 'or click to browse — add the original first, then the changed version',
+  dropHint: 'or click to browse - add the original first, then the changed version',
   acceptLabel: 'PDF',
   validate: (file) => /\.pdf$/i.test(file.name) || file.type === 'application/pdf',
 
@@ -621,7 +621,7 @@ export const comparePdf = {
           text: 'The first file is the original and the second one is the changed version. Pages that differ are marked in red.',
         }),
         el('div', { class: 'note' }, [
-          el('span', { text: 'Exactly two documents are needed — remove one to swap the order.' }),
+          el('span', { text: 'Exactly two documents are needed - remove one to swap the order.' }),
         ]),
       ]),
       read: () => ({}),
@@ -744,7 +744,7 @@ export const comparePdf = {
       const sheet = out.addPage([lw, lh]);
 
       sheet.drawText(
-        `Page ${i + 1} of ${pageCount} — ${isDifferent ? 'different' : 'identical'}`,
+        `Page ${i + 1} of ${pageCount} - ${isDifferent ? 'different' : 'identical'}`,
         { x: 40, y: lh - 46, size: 12, font: bold, color: isDifferent ? red : ink }
       );
       sheet.drawText(fileA.name, { x: 40, y: lh - 64, size: 9, font, color: muted });

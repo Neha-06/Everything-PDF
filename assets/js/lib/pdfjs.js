@@ -1,5 +1,5 @@
 /*
- * PDF.js wrapper — page rasterisation + text extraction.
+ * PDF.js wrapper - page rasterisation + text extraction.
  *
  * The library, its worker, the CMaps and the standard fonts are all bundled in
  * assets/vendor/pdfjs, so rendering never depends on a CDN.

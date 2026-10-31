@@ -1,5 +1,5 @@
 /*
- * Application shell — hash router, header, home page and tool pages.
+ * Application shell - hash router, header, home page and tool pages.
  */
 import { $, el, clear } from './lib/util.js';
 import { icon } from './lib/icons.js';
@@ -26,7 +26,7 @@ function applyTheme(theme) {
   try {
     localStorage.setItem(THEME_KEY, theme);
   } catch {
-    /* storage may be unavailable — the theme still applies for this session */
+    /* storage may be unavailable - the theme still applies for this session */
   }
 }
 
@@ -140,7 +140,7 @@ function buildFooter() {
           }),
           el('p', {
             class: 'site-footer__note',
-            text: 'OCR uses a language model bundled with the site — scanned pages are never sent to a server either.',
+            text: 'OCR uses a language model bundled with the site - scanned pages are never sent to a server either.',
           }),
           el('span', { class: 'site-footer__pill' }, [
             icon('lock', 13),
@@ -185,7 +185,7 @@ function buildFooter() {
         el('span', { class: 'site-footer__sep', 'aria-hidden': 'true', text: '·' }),
         el('span', { class: 'site-footer__made' }, [
           icon('heart', 13, 'site-footer__heart'),
-          el('span', { text: 'No uploads — files stay on your device' }),
+          el('span', { text: 'No uploads - files stay on your device' }),
         ]),
       ]),
     ]),
@@ -431,7 +431,7 @@ function render() {
     const tool = getTool(route.id);
     if (tool) {
       buildToolPage(app, tool);
-      document.title = `${tool.name} — PDF Tools`;
+      document.title = `${tool.name} - PDF Tools`;
       return;
     }
     app.append(
@@ -445,12 +445,12 @@ function render() {
         ]),
       ])
     );
-    document.title = 'Not found — PDF Tools';
+    document.title = 'Not found - PDF Tools';
     return;
   }
 
   buildHome(app);
-  document.title = 'PDF Tools — every PDF tool in one place';
+  document.title = 'PDF Tools - every PDF tool in one place';
 }
 
 /* ----------------------------------------------------------------- boot */

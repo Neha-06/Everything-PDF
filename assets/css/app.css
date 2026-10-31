@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Components — ankitjha shadcn-style surface kit
+   Components - ankitjha shadcn-style surface kit
    ========================================================================== */
 
 .shell {
@@ -131,8 +131,14 @@ main#app {
   min-width: 620px;
   max-width: calc(100vw - 32px);
   max-height: calc(100vh - 84px);
+  max-height: calc(100dvh - 84px);
   overflow-y: auto;
   overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--foreground) 36%, transparent)
+    transparent;
   padding: 14px;
   border-radius: var(--radius);
   border: 1px solid var(--border);
@@ -170,6 +176,24 @@ main#app {
 
 .dropdown.is-open .dropdown__chevron {
   transform: rotate(180deg);
+}
+
+/* A slightly wider, higher-contrast thumb than the global default so the
+   panel is easy to scroll by touch as well as by mouse. */
+.dropdown__panel::-webkit-scrollbar {
+  width: 12px;
+}
+
+.dropdown__panel::-webkit-scrollbar-thumb {
+  border: 3px solid transparent;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--foreground) 36%, transparent);
+  background-clip: content-box;
+}
+
+.dropdown__panel::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in oklab, var(--foreground) 52%, transparent);
+  background-clip: content-box;
 }
 
 .dropdown__group-title {
@@ -1867,7 +1891,7 @@ main#app {
   text-underline-offset: 4px;
 }
 
-/* Developer credit card — the one place the name is always spelled out. */
+/* Developer credit card - the one place the name is always spelled out. */
 .dev-credit {
   display: flex;
   align-items: center;
@@ -2028,7 +2052,15 @@ main#app {
     width: auto;
     min-width: 0;
     max-width: none;
+    /* Use the dynamic viewport so the last tools stay above mobile browser
+       chrome, and leave room for the home indicator on iOS. */
+    max-height: calc(100vh - 76px);
+    max-height: calc(100dvh - 76px - env(safe-area-inset-bottom, 0px));
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    /* Blurring a long, scrolling list is expensive on phones; the panel is
+       nearly opaque now, so a solid background scrolls far more smoothly. */
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
   .hero {
     padding: 40px 20px 30px;
